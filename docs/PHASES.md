@@ -6,9 +6,9 @@
 - [x] 受け入れ基準(簡易)の確認
 
 ## Phase 1: ワークフロー/リポジトリ準備
-- [ ] Git Worktree 運用を開始(ドメイン単位で作成)
-- [ ] ブランチ戦略の徹底(`main`/`develop`/`feature/{domain-name}/{task}`)
-- [ ] develop から feature ブランチを派生する手順を共有
+- [x] Git Worktree 運用ルールを共有(作成は Phase 3 開始時)
+- [x] ブランチ戦略の徹底(`main`/`develop`/`feature/{domain-name}/{task}`)
+- [x] develop から feature ブランチを派生する手順を共有
 
 ## Phase 2: アーキテクチャ土台
 - [ ] ディレクトリ構成を `src/` 配下に整備(`domain`/`application`/`infrastructure`/`components`/`hooks`)
@@ -18,6 +18,7 @@
 ## Phase 2.5: DB設計/マイグレーション/シード(Prisma)
 - [ ] ドメインモデルに基づくテーブル/カラム設計
 - [ ] Prisma スキーマ定義
+- [ ] Supabase CLI を利用し、Docker で DB を構築
 - [ ] マイグレーション作成/適用
 - [ ] 初期シード投入(開発用ユーザー/投稿など)
 - [ ] DB 変更手順の共有(生成/適用/ロールバック)
