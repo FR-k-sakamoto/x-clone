@@ -11,9 +11,9 @@
 - [x] develop から feature ブランチを派生する手順を共有
 
 ## Phase 2: アーキテクチャ土台
-- [ ] ディレクトリ構成を `src/` 配下に整備(`domain`/`application`/`infrastructure`/`components`/`hooks`)
-- [ ] Domain 層の方針(React/Next.js の import 禁止)を明文化
-- [ ] Server Actions と RSC の責務境界を確認
+- [x] ディレクトリ構成を `app/` 配下に整備(`_domain`/`_application`/`_infrastructure`/`_components`/`_hooks`)
+- [x] Domain 層の方針(React/Next.js の import 禁止)を明文化
+- [x] Server Actions と RSC の責務境界を確認
 
 ## Phase 2.5: DB設計/マイグレーション/シード(Prisma)
 - [ ] ドメインモデルに基づくテーブル/カラム設計
