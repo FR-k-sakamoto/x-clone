@@ -38,6 +38,11 @@
 - `prisma/seed.js` で `dotenv/config` を読み込み、`DATABASE_URL` を参照する
 - Prisma v7 では adapter が必要なため `@prisma/adapter-pg` を使用する
 
+## Auth シード(メール/パスワード)
+`prisma/seed.js` で以下ユーザーを作成する:
+- `alice@example.com` / `password1234`
+- `bob@example.com` / `password1234`
+
 ## 変更手順(生成/適用/ロールバック)
 - 変更
 - `prisma/schema.prisma` を更新

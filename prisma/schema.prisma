@@ -14,7 +14,11 @@ model User {
   handle    String   @unique
   name      String
   email     String   @unique
+  emailVerified DateTime?
+  // For NextAuth adapter compatibility. Keep legacy imageUrl for now.
+  image     String?
   imageUrl  String?
+  passwordHash String?
   bio       String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
