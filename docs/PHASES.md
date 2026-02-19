@@ -38,10 +38,10 @@
 - [x] Components/Hooks: プロフィール表示/編集 UI
 
 ### Post(投稿)ドメイン
-- [ ] Domain: Post Entity/ValueObject(文字数上限160)定義
-- [ ] Application: 投稿作成/編集/削除ユースケース実装
-- [ ] Infrastructure: Post リポジトリ実装
-- [ ] Components/Hooks: 投稿フォーム/投稿表示 UI
+- [x] Domain: Post Entity/ValueObject(文字数上限160)定義
+- [x] Application: 投稿作成/編集/削除ユースケース実装
+- [x] Infrastructure: Post リポジトリ実装
+- [x] Components/Hooks: 投稿フォーム/投稿表示 UI
 
 ### Timeline ドメイン
 - [ ] Domain: Timeline 用モデル定義

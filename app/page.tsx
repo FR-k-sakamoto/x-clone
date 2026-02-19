@@ -2,10 +2,21 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 
 import { AuthButtons } from "@/app/_components/auth/AuthButtons";
+import { PostComposer } from "@/app/_components/post/PostComposer";
+import { PostList } from "@/app/_components/post/PostList";
+import { getRecentPosts } from "@/app/_application/post/getRecentPosts";
 import { authOptions } from "@/app/_infrastructure/auth/authOptions";
+import { prisma } from "@/app/_infrastructure/db/prisma";
+import { PrismaPostRepository } from "@/app/_infrastructure/post/PrismaPostRepository";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  const posts = session?.user
+    ? await getRecentPosts(
+        { postRepo: new PrismaPostRepository(prisma) },
+        { limit: 30 }
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -16,7 +27,7 @@ export default async function Home() {
               X Clone
             </h1>
             <p className="mt-1 text-sm text-zinc-600">
-              Phase 3: Auth ドメイン作業中
+              Phase 3: Post ドメイン作業中
             </p>
           </div>
 
@@ -64,6 +75,20 @@ export default async function Home() {
             </div>
           )}
         </main>
+
+        {session?.user ? (
+          <div className="mt-8 space-y-4">
+            <PostComposer />
+            <PostList
+              posts={posts.map((post) => ({
+                id: post.getId().toString(),
+                authorId: post.getAuthorId().toString(),
+                body: post.getBody().toString(),
+                createdAtIso: post.getCreatedAt().toISOString(),
+              }))}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );
