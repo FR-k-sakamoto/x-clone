@@ -1,8 +1,13 @@
+import { toggleLikeAction } from "@/app/_actions/reaction/actions";
+import { LikeButton } from "@/app/_components/reaction/LikeButton";
+
 export type PostListItem = {
   id: string;
   authorId: string;
   body: string;
   createdAtIso: string;
+  likeCount: number;
+  likedByMe: boolean;
 };
 
 function formatDate(iso: string) {
@@ -33,6 +38,11 @@ export function PostList({ posts }: { posts: PostListItem[] }) {
             <time dateTime={post.createdAtIso}>{formatDate(post.createdAtIso)}</time>
           </div>
           <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-900">{post.body}</p>
+          <form action={toggleLikeAction} className="mt-3">
+            <input type="hidden" name="postId" value={post.id} />
+            <input type="hidden" name="intent" value={post.likedByMe ? "unlike" : "like"} />
+            <LikeButton likedByMe={post.likedByMe} likeCount={post.likeCount} />
+          </form>
         </li>
       ))}
     </ul>

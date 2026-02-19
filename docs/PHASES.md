@@ -50,10 +50,10 @@
 - [ ] Components/Hooks: 無限スクロール UI
 
 ### Reaction(いいね)ドメイン
-- [ ] Domain: Like Entity/ValueObject 定義
-- [ ] Application: いいね/解除ユースケース実装
-- [ ] Infrastructure: Like リポジトリ実装
-- [ ] Components/Hooks: いいね UI
+- [x] Domain: Like Entity/ValueObject 定義
+- [x] Application: いいね/解除ユースケース実装
+- [x] Infrastructure: Like リポジトリ実装
+- [x] Components/Hooks: いいね UI
 
 ### Repost(リポスト)ドメイン
 - [ ] Domain: Repost Entity/ValueObject 定義

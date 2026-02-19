@@ -5,18 +5,29 @@ import { AuthButtons } from "@/app/_components/auth/AuthButtons";
 import { PostComposer } from "@/app/_components/post/PostComposer";
 import { PostList } from "@/app/_components/post/PostList";
 import { getRecentPosts } from "@/app/_application/post/getRecentPosts";
+import { getLikeSummaries } from "@/app/_application/reaction/getLikeSummaries";
 import { authOptions } from "@/app/_infrastructure/auth/authOptions";
 import { prisma } from "@/app/_infrastructure/db/prisma";
 import { PrismaPostRepository } from "@/app/_infrastructure/post/PrismaPostRepository";
+import { PrismaLikeRepository } from "@/app/_infrastructure/reaction/PrismaLikeRepository";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const posts = session?.user
-    ? await getRecentPosts(
-        { postRepo: new PrismaPostRepository(prisma) },
-        { limit: 30 }
+    ? await getRecentPosts({ postRepo: new PrismaPostRepository(prisma) }, { limit: 30 })
+    : [];
+  const likeSummaries = session?.user
+    ? await getLikeSummaries(
+        { likeRepo: new PrismaLikeRepository(prisma) },
+        {
+          viewerUserId: session.user.id,
+          postIds: posts.map((post) => post.getId().toString()),
+        }
       )
     : [];
+  const likeSummaryByPostId = new Map(
+    likeSummaries.map((summary) => [summary.postId, summary])
+  );
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -85,6 +96,8 @@ export default async function Home() {
                 authorId: post.getAuthorId().toString(),
                 body: post.getBody().toString(),
                 createdAtIso: post.getCreatedAt().toISOString(),
+                likeCount: likeSummaryByPostId.get(post.getId().toString())?.likeCount ?? 0,
+                likedByMe: likeSummaryByPostId.get(post.getId().toString())?.likedByMe ?? false,
               }))}
             />
           </div>
