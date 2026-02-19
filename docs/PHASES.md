@@ -26,6 +26,7 @@
 ## Phase 3: 実装(ドメイン別)
 ### Auth ドメイン
 - [x] Domain: 認証用 Entity/ValueObject/Repository Interface を定義
+- [x] Application: メール/パスワードのサインアップユースケース実装
 - [x] Application: サインアップ/ログイン/ログアウトのユースケース実装(メール/パスワード)
 - [x] Infrastructure: NextAuth(Credentials) + Prisma 接続実装
 - [x] Components/Hooks: 認証 UI とフロー接続(ログイン/サインアップ)
