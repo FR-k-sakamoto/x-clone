@@ -24,20 +24,21 @@ export async function signUpWithEmailPassword(
 
   const userRepo = new PrismaEmailPasswordUserRepository(prisma);
   const passwordHasher = new BcryptPasswordHasher();
+  let result: Awaited<ReturnType<typeof signUpUseCase>>;
 
   try {
-    const result = await signUpUseCase(
+    result = await signUpUseCase(
       { userRepo, passwordHasher },
       { email, name, password }
     );
-
-    if (result.ok) {
-      redirect("/login");
-    }
-
-    return { ok: false, message: result.message };
   } catch (err) {
     console.error("[auth][signup][action]", err);
     return { ok: false, message: "サインアップに失敗しました。" };
   }
+
+  if (result.ok) {
+    redirect("/login");
+  }
+
+  return { ok: false, message: result.message };
 }

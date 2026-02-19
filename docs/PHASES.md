@@ -32,10 +32,10 @@
 - [x] Components/Hooks: 認証 UI とフロー接続(ログイン/サインアップ)
 
 ### User/Profile ドメイン
-- [ ] Domain: User/Profile Entity/ValueObject 定義
-- [ ] Application: プロフィール取得/更新ユースケース実装
-- [ ] Infrastructure: User/Profile リポジトリ実装
-- [ ] Components/Hooks: プロフィール表示/編集 UI
+- [x] Domain: User/Profile Entity/ValueObject 定義
+- [x] Application: プロフィール取得/更新ユースケース実装
+- [x] Infrastructure: User/Profile リポジトリ実装
+- [x] Components/Hooks: プロフィール表示/編集 UI
 
 ### Post(投稿)ドメイン
 - [ ] Domain: Post Entity/ValueObject(文字数上限160)定義
