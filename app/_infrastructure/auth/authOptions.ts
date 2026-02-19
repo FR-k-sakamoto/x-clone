@@ -6,7 +6,16 @@ import bcrypt from "bcryptjs";
 
 import { prisma } from "@/app/_infrastructure/db/prisma";
 
+const nextAuthSecret =
+  process.env.NEXTAUTH_SECRET ??
+  (process.env.NODE_ENV === "production" ? undefined : "x-clone-dev-nextauth-secret");
+
+if (!nextAuthSecret) {
+  throw new Error("NEXTAUTH_SECRET is required in production.");
+}
+
 export const authOptions: NextAuthOptions = {
+  secret: nextAuthSecret,
   debug: process.env.NODE_ENV !== "production",
   logger: {
     error(code, metadata) {
