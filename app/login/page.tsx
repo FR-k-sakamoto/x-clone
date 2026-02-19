@@ -8,12 +8,12 @@ import { LoginForm } from "@/app/_components/auth/LoginForm";
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const session = await getServerSession(authOptions);
   if (session?.user) redirect("/");
 
-  const sp = searchParams ?? {};
+  const sp = (await searchParams) ?? {};
   const error = typeof sp.error === "string" ? sp.error : null;
 
   return (
