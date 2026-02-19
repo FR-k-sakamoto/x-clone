@@ -38,10 +38,10 @@
 - [x] Components/Hooks: プロフィール表示/編集 UI
 
 ### Post(投稿)ドメイン
-- [ ] Domain: Post Entity/ValueObject(文字数上限160)定義
-- [ ] Application: 投稿作成/編集/削除ユースケース実装
-- [ ] Infrastructure: Post リポジトリ実装
-- [ ] Components/Hooks: 投稿フォーム/投稿表示 UI
+- [x] Domain: Post Entity/ValueObject(文字数上限160)定義
+- [x] Application: 投稿作成/編集/削除ユースケース実装
+- [x] Infrastructure: Post リポジトリ実装
+- [x] Components/Hooks: 投稿フォーム/投稿表示 UI
 
 ### Timeline ドメイン
 - [ ] Domain: Timeline 用モデル定義
@@ -50,10 +50,10 @@
 - [ ] Components/Hooks: 無限スクロール UI
 
 ### Reaction(いいね)ドメイン
-- [ ] Domain: Like Entity/ValueObject 定義
-- [ ] Application: いいね/解除ユースケース実装
-- [ ] Infrastructure: Like リポジトリ実装
-- [ ] Components/Hooks: いいね UI
+- [x] Domain: Like Entity/ValueObject 定義
+- [x] Application: いいね/解除ユースケース実装
+- [x] Infrastructure: Like リポジトリ実装
+- [x] Components/Hooks: いいね UI
 
 ### Repost(リポスト)ドメイン
 - [ ] Domain: Repost Entity/ValueObject 定義
