@@ -44,10 +44,10 @@
 - [x] Components/Hooks: 投稿フォーム/投稿表示 UI
 
 ### Timeline ドメイン
-- [ ] Domain: Timeline 用モデル定義
-- [ ] Application: 最新順/フォローのみ取得ユースケース実装
-- [ ] Infrastructure: タイムライン取得実装
-- [ ] Components/Hooks: 無限スクロール UI
+- [x] Domain: Timeline 用モデル定義
+- [x] Application: 最新順/フォローのみ取得ユースケース実装
+- [x] Infrastructure: タイムライン取得実装
+- [x] Components/Hooks: 無限スクロール UI
 
 ### Reaction(いいね)ドメイン
 - [x] Domain: Like Entity/ValueObject 定義
