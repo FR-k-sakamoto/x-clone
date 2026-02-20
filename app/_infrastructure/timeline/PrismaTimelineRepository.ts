@@ -66,6 +66,9 @@ export class PrismaTimelineRepository implements TimelineRepository {
           authorId: true,
           body: true,
           createdAt: true,
+          author: {
+            select: { handle: true },
+          },
         },
       }),
       this.prisma.repost.findMany({
@@ -87,6 +90,9 @@ export class PrismaTimelineRepository implements TimelineRepository {
           post: {
             select: {
               authorId: true,
+              author: {
+                select: { handle: true },
+              },
               body: true,
             },
           },
@@ -103,6 +109,7 @@ export class PrismaTimelineRepository implements TimelineRepository {
         reposterHandle: null,
         post: {
           authorId: post.authorId,
+          authorHandle: post.author.handle,
           body: post.body,
         },
       })),
@@ -114,6 +121,7 @@ export class PrismaTimelineRepository implements TimelineRepository {
         reposterHandle: repost.user.handle,
         post: {
           authorId: repost.post.authorId,
+          authorHandle: repost.post.author.handle,
           body: repost.post.body,
         },
       })),

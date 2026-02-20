@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { toggleLikeAction } from "@/app/_actions/reaction/actions";
 import { LikeButton } from "@/app/_components/reaction/LikeButton";
 import { toggleRepostAction } from "@/app/_actions/repost/actions";
@@ -17,6 +19,7 @@ export type PostListItem = {
 
 export type PostListPostData = {
   authorId: string;
+  authorHandle: string;
   body: string;
 };
 
@@ -59,7 +62,9 @@ export function PostList({
               </p>
             ) : null}
             <div className="flex items-center justify-between text-xs text-zinc-500">
-              <span className="font-mono">{post.authorId.slice(0, 8)}</span>
+              <Link href={`/u/${post.authorHandle}`} className="font-mono hover:underline">
+                @{post.authorHandle}
+              </Link>
               <time dateTime={event.eventCreatedAtIso}>{formatDate(event.eventCreatedAtIso)}</time>
             </div>
             <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-900">{post.body}</p>

@@ -10,6 +10,7 @@ export type TimelineEvent = {
   reposterHandle: string | null;
   post: {
     authorId: string;
+    authorHandle: string;
     body: string;
   };
 };

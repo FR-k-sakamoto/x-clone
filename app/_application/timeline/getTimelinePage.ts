@@ -14,6 +14,7 @@ export type TimelineListItem = {
   eventType: "post" | "repost";
   reposterHandle: string | null;
   authorId: string;
+  authorHandle: string;
   body: string;
   likeCount: number;
   likedByMe: boolean;
@@ -99,6 +100,7 @@ export async function getTimelinePage(
       eventType: event.eventType,
       reposterHandle: event.reposterHandle,
       authorId: event.post.authorId,
+      authorHandle: event.post.authorHandle,
       body: event.post.body,
       likeCount: likeSummaryByPostId.get(event.postId)?.likeCount ?? 0,
       likedByMe: likeSummaryByPostId.get(event.postId)?.likedByMe ?? false,

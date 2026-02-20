@@ -49,6 +49,7 @@ export function TimelineFeed(props: {
           item.postId,
           {
             authorId: item.authorId,
+            authorHandle: item.authorHandle,
             body: item.body,
           },
         ])
