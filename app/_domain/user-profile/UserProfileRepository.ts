@@ -6,6 +6,7 @@ import { UserProfile } from "@/app/_domain/user-profile/UserProfile";
 
 export interface UserProfileRepository {
   findById(userId: UserId): Promise<UserProfile | null>;
+  findByHandle(handle: UserHandle): Promise<UserProfile | null>;
   existsByHandle(handle: UserHandle, excludeUserId?: UserId): Promise<boolean>;
   update(params: {
     userId: UserId;
