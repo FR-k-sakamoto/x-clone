@@ -56,10 +56,10 @@
 - [x] Components/Hooks: いいね UI
 
 ### Repost(リポスト)ドメイン
-- [ ] Domain: Repost Entity/ValueObject 定義
-- [ ] Application: リポスト作成/解除ユースケース実装
-- [ ] Infrastructure: Repost リポジトリ実装
-- [ ] Components/Hooks: リポスト UI
+- [x] Domain: Repost Entity/ValueObject 定義
+- [x] Application: リポスト作成/解除ユースケース実装
+- [x] Infrastructure: Repost リポジトリ実装
+- [x] Components/Hooks: リポスト UI
 
 ### Reply(返信)ドメイン
 - [ ] Domain: Reply/Thread Entity/ValueObject 定義
