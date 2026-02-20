@@ -68,10 +68,10 @@
 - [ ] Components/Hooks: 返信 UI/スレッド表示
 
 ### Follow ドメイン
-- [ ] Domain: Follow Entity/ValueObject 定義
-- [ ] Application: フォロー/解除ユースケース実装
-- [ ] Infrastructure: Follow リポジトリ実装
-- [ ] Components/Hooks: フォロー UI
+- [x] Domain: Follow Entity/ValueObject 定義
+- [x] Application: フォロー/解除ユースケース実装
+- [x] Infrastructure: Follow リポジトリ実装
+- [x] Components/Hooks: フォロー UI
 
 ### Search ドメイン
 - [ ] Domain: Search Query/Result ValueObject 定義
