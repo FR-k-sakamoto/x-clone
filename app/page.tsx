@@ -36,7 +36,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto max-w-3xl px-6 py-14">
+      <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">X Clone</h1>
@@ -63,7 +63,7 @@ export default async function Home() {
         ) : null}
 
         {session?.user ? (
-          <div className="mt-8 space-y-4">
+          <div className="mt-6 space-y-4 sm:mt-8">
             <DashboardSearchPanel />
             <PostComposer />
             <TimelineFeed

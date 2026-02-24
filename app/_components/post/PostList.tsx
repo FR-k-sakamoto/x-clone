@@ -1,9 +1,6 @@
 import Link from "next/link";
 
-import { toggleLikeAction } from "@/app/_actions/reaction/actions";
-import { LikeButton } from "@/app/_components/reaction/LikeButton";
-import { toggleRepostAction } from "@/app/_actions/repost/actions";
-import { RepostButton } from "@/app/_components/repost/RepostButton";
+import { PostEngagementActions } from "@/app/_components/post/PostEngagementActions";
 
 export type PostListItem = {
   eventKey: string;
@@ -23,14 +20,15 @@ export type PostListPostData = {
   body: string;
 };
 
+const dateFormatter = new Intl.DateTimeFormat("ja-JP", {
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 function formatDate(iso: string) {
-  const date = new Date(iso);
-  return new Intl.DateTimeFormat("ja-JP", {
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
+  return dateFormatter.format(new Date(iso));
 }
 
 export function PostList({
@@ -61,31 +59,21 @@ export function PostList({
                 @{event.reposterHandle} がリポスト
               </p>
             ) : null}
-            <div className="flex items-center justify-between text-xs text-zinc-500">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500">
               <Link href={`/u/${post.authorHandle}`} className="font-mono hover:underline">
                 @{post.authorHandle}
               </Link>
               <time dateTime={event.eventCreatedAtIso}>{formatDate(event.eventCreatedAtIso)}</time>
             </div>
             <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-900">{post.body}</p>
-            <div className="mt-3 flex items-center gap-4">
-              <form action={toggleLikeAction}>
-                <input type="hidden" name="postId" value={event.postId} />
-                <input type="hidden" name="intent" value={event.likedByMe ? "unlike" : "like"} />
-                <LikeButton likedByMe={event.likedByMe} likeCount={event.likeCount} />
-              </form>
-              <form action={toggleRepostAction}>
-                <input type="hidden" name="postId" value={event.postId} />
-                <input
-                  type="hidden"
-                  name="intent"
-                  value={event.repostedByMe ? "unrepost" : "repost"}
-                />
-                <RepostButton repostedByMe={event.repostedByMe} repostCount={event.repostCount} />
-              </form>
-              <Link href={`/post/${event.postId}`} className="text-xs font-medium text-zinc-600 hover:text-zinc-900">
-                返信を見る
-              </Link>
+            <div className="mt-3">
+              <PostEngagementActions
+                postId={event.postId}
+                initialLikedByMe={event.likedByMe}
+                initialLikeCount={event.likeCount}
+                initialRepostedByMe={event.repostedByMe}
+                initialRepostCount={event.repostCount}
+              />
             </div>
           </li>
         );

@@ -11,7 +11,7 @@ export default async function SignupPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-6 py-16">
+      <div className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-4 py-12 sm:px-6 sm:py-16">
         <h1 className="text-3xl font-semibold tracking-tight text-zinc-950">
           Sign up
         </h1>

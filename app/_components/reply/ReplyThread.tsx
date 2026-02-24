@@ -5,14 +5,15 @@ import Link from "next/link";
 import type { ReplyThreadNode } from "@/app/_domain/reply/ReplyThread";
 import { useReplyThread } from "@/app/_hooks/reply/useReplyThread";
 
+const dateFormatter = new Intl.DateTimeFormat("ja-JP", {
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 function formatDate(iso: string) {
-  const date = new Date(iso);
-  return new Intl.DateTimeFormat("ja-JP", {
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(date);
+  return dateFormatter.format(new Date(iso));
 }
 
 export function ReplyThread(props: {
@@ -29,7 +30,7 @@ export function ReplyThread(props: {
   return (
     <div className="space-y-3">
       <article className="rounded-xl border border-zinc-200 bg-white p-4">
-        <div className="flex items-center justify-between text-xs text-zinc-500">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500">
           <Link href={`/u/${thread.rootPost.authorHandle}`} className="font-mono hover:underline">
             @{thread.rootPost.authorHandle}
           </Link>
@@ -50,7 +51,7 @@ export function ReplyThread(props: {
               className="rounded-xl border border-zinc-200 bg-white p-4"
               style={{ marginLeft: `${Math.min(reply.depth, 5) * 12}px` }}
             >
-              <div className="flex items-center justify-between text-xs text-zinc-500">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500">
                 <Link href={`/u/${reply.authorHandle}`} className="font-mono hover:underline">
                   @{reply.authorHandle}
                 </Link>
