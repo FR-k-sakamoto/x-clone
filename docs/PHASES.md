@@ -62,10 +62,10 @@
 - [x] Components/Hooks: リポスト UI
 
 ### Reply(返信)ドメイン
-- [ ] Domain: Reply/Thread Entity/ValueObject 定義
-- [ ] Application: 返信作成/スレッド取得ユースケース実装
-- [ ] Infrastructure: Reply リポジトリ実装
-- [ ] Components/Hooks: 返信 UI/スレッド表示
+- [x] Domain: Reply/Thread Entity/ValueObject 定義
+- [x] Application: 返信作成/スレッド取得ユースケース実装
+- [x] Infrastructure: Reply リポジトリ実装
+- [x] Components/Hooks: 返信 UI/スレッド表示
 
 ### Follow ドメイン
 - [x] Domain: Follow Entity/ValueObject 定義
@@ -74,16 +74,10 @@
 - [x] Components/Hooks: フォロー UI
 
 ### Search ドメイン
-- [ ] Domain: Search Query/Result ValueObject 定義
-- [ ] Application: 投稿/ユーザー検索ユースケース実装
-- [ ] Infrastructure: 検索実装
-- [ ] Components/Hooks: 検索 UI
-
-### Optional(発展)ドメイン
-- [ ] Domain: ハッシュタグ/ブックマーク/通知/非公開アカウント/画像投稿のモデル定義
-- [ ] Application: 各ユースケース実装
-- [ ] Infrastructure: 各リポジトリ実装
-- [ ] Components/Hooks: 各 UI 実装
+- [x] Domain: Search Query/Result ValueObject 定義
+- [x] Application: 投稿/ユーザー検索ユースケース実装
+- [x] Infrastructure: 検索実装
+- [x] Components/Hooks: 検索 UI
 
 ## Phase 4: UI/UX 仕上げ
 - [ ] 主要操作が 3 クリック以内で到達できる導線確認
@@ -99,3 +93,9 @@
 - [ ] 受け入れ基準の確認
 - [ ] デプロイ準備(Render 設定)
 - [ ] リリース手順の整理
+
+## Phase 7: Optional(発展)ドメイン
+- [ ] Domain: ハッシュタグ/ブックマーク/通知/非公開アカウント/画像投稿のモデル定義
+- [ ] Application: 各ユースケース実装
+- [ ] Infrastructure: 各リポジトリ実装
+- [ ] Components/Hooks: 各 UI 実装
