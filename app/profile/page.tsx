@@ -19,7 +19,7 @@ export default async function ProfilePage() {
   if (!result.ok) {
     return (
       <div className="min-h-screen bg-zinc-50">
-        <div className="mx-auto max-w-xl px-6 py-16">
+        <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-16">
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">Profile</h1>
           <p className="mt-4 text-sm text-red-600">{result.message}</p>
           <Link href="/" className="mt-6 inline-block text-sm text-zinc-700 underline">
@@ -32,7 +32,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto max-w-xl px-6 py-16">
+      <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-16">
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">Edit profile</h1>
         <p className="mt-2 text-sm text-zinc-600">表示名、ハンドル、自己紹介を更新できます。</p>
 

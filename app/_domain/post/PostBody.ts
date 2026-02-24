@@ -1,10 +1,12 @@
+import { normalizeUserInput } from "@/app/_domain/shared/normalizeUserInput";
+
 export class PostBody {
   static readonly MAX_LENGTH = 160;
 
   private constructor(private readonly value: string) {}
 
   static fromString(value: string) {
-    const normalized = value.trim();
+    const normalized = normalizeUserInput(value);
     if (normalized.length === 0) {
       throw new Error("PostBody must be non-empty.");
     }

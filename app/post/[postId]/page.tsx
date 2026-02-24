@@ -20,7 +20,7 @@ export default async function PostDetailPage(props: { params: Promise<{ postId: 
   if (!result.ok) {
     return (
       <div className="min-h-screen bg-zinc-50">
-        <div className="mx-auto max-w-3xl px-6 py-14">
+        <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">Post</h1>
           <p className="mt-4 text-sm text-red-600">{result.message}</p>
           <Link href="/" className="mt-6 inline-block text-sm text-zinc-700 underline">
@@ -33,7 +33,7 @@ export default async function PostDetailPage(props: { params: Promise<{ postId: 
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto max-w-3xl px-6 py-14 space-y-4">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-10 sm:px-6 sm:py-14">
         <header className="flex items-center justify-between">
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">Thread</h1>
           <Link href="/" className="text-sm text-zinc-700 underline">

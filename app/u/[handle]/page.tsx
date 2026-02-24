@@ -19,7 +19,7 @@ export default async function UserProfilePage(props: { params: Promise<{ handle:
   if (!result.ok) {
     return (
       <div className="min-h-screen bg-zinc-50">
-        <div className="mx-auto max-w-xl px-6 py-16">
+        <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-16">
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">Profile</h1>
           <p className="mt-4 text-sm text-red-600">{result.message}</p>
           <Link href="/" className="mt-6 inline-block text-sm text-zinc-700 underline">
@@ -47,7 +47,7 @@ export default async function UserProfilePage(props: { params: Promise<{ handle:
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <div className="mx-auto max-w-xl px-6 py-16">
+      <div className="mx-auto max-w-xl px-4 py-12 sm:px-6 sm:py-16">
         <div className="rounded-xl border border-zinc-200 bg-white p-6">
           <div className="flex items-start justify-between gap-4">
             <div>

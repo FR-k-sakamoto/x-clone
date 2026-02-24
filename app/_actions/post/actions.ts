@@ -6,7 +6,9 @@ import { getServerSession } from "next-auth";
 import { createPost } from "@/app/_application/post/createPost";
 import { authOptions } from "@/app/_infrastructure/auth/authOptions";
 import { prisma } from "@/app/_infrastructure/db/prisma";
+import { logOperationError, logOperationInfo, logOperationWarn } from "@/app/_infrastructure/logging/operationLogger";
 import { PrismaPostRepository } from "@/app/_infrastructure/post/PrismaPostRepository";
+import { assertServerActionCsrf } from "@/app/_infrastructure/security/assertServerActionCsrf";
 
 export type CreatePostState = { ok: boolean; message: string | null };
 
@@ -19,9 +21,12 @@ export async function createPostAction(
   _prevState: CreatePostState,
   formData: FormData
 ): Promise<CreatePostState> {
+  await assertServerActionCsrf();
+
   const session = await getServerSession(authOptions);
   const userId = session?.user?.id;
   if (!userId) {
+    logOperationWarn("post.create.unauthorized");
     return { ok: false, message: "投稿にはログインが必要です。" };
   }
 
@@ -32,12 +37,16 @@ export async function createPostAction(
 
   try {
     const result = await createPost({ postRepo }, { authorId: userId, body });
-    if (!result.ok) return { ok: false, message: result.message };
+    if (!result.ok) {
+      logOperationWarn("post.create.validation_failed", { userId, message: result.message });
+      return { ok: false, message: result.message };
+    }
 
     revalidatePath("/");
+    logOperationInfo("post.create.success", { userId });
     return { ok: true, message: null };
   } catch (error) {
-    console.error("[post][create][action]", error);
+    logOperationError("post.create.failed", error, { userId });
     return initialError;
   }
 }

@@ -46,7 +46,11 @@ export function PostComposer() {
         </button>
       </div>
 
-      {state.message ? <p className="text-sm text-red-600">{state.message}</p> : null}
+      {state.message ? (
+        <p className="text-sm text-red-600" role="alert">
+          {state.message}
+        </p>
+      ) : null}
     </form>
   );
 }

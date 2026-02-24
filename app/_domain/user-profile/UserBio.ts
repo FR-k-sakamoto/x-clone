@@ -1,8 +1,10 @@
+import { normalizeUserInput } from "@/app/_domain/shared/normalizeUserInput";
+
 export class UserBio {
   private constructor(private readonly value: string | null) {}
 
   static fromString(value: string) {
-    const normalized = value.trim();
+    const normalized = normalizeUserInput(value);
     if (normalized.length === 0) {
       return new UserBio(null);
     }
