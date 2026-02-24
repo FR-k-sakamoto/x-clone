@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
 import { prisma } from "@/app/_infrastructure/db/prisma";
+import { logOperationInfo, logOperationWarn } from "@/app/_infrastructure/logging/operationLogger";
 
 const nextAuthSecret =
   process.env.NEXTAUTH_SECRET ??
@@ -58,7 +59,10 @@ export const authOptions: NextAuthOptions = {
           if (!user?.passwordHash) return null;
 
           const ok = await bcrypt.compare(password, user.passwordHash);
-          if (!ok) return null;
+          if (!ok) {
+            logOperationWarn("auth.signin.invalid_password", { userId: user.id });
+            return null;
+          }
 
           // NextAuth expects a plain object with `id`.
           const u: NextAuthUser = {
@@ -92,6 +96,15 @@ export const authOptions: NextAuthOptions = {
         session.user.handle = (token as JWT).handle;
       }
       return session;
+    },
+  },
+  events: {
+    async signIn({ user }) {
+      logOperationInfo("auth.signin.success", { userId: user.id });
+    },
+    async signOut({ token }) {
+      const userId = typeof token?.id === "string" ? token.id : null;
+      logOperationInfo("auth.signout.success", { userId });
     },
   },
 };

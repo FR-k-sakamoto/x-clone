@@ -58,7 +58,13 @@ export function ProfileForm(props: { initialName: string; initialHandle: string;
       </div>
 
       {state.message ? (
-        <p className={`text-sm ${state.ok ? "text-emerald-700" : "text-red-600"}`}>{state.message}</p>
+        <p
+          className={`text-sm ${state.ok ? "text-emerald-700" : "text-red-600"}`}
+          role="status"
+          aria-live="polite"
+        >
+          {state.message}
+        </p>
       ) : null}
 
       <button

@@ -73,7 +73,9 @@ export function LoginForm({
       </div>
 
       {error ? (
-        <p className="text-sm text-red-600">{error}</p>
+        <p className="text-sm text-red-600" role="alert">
+          {error}
+        </p>
       ) : null}
 
       <button
@@ -86,4 +88,3 @@ export function LoginForm({
     </form>
   );
 }
-

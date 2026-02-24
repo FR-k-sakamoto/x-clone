@@ -1,8 +1,10 @@
+import { normalizeUserInput } from "@/app/_domain/shared/normalizeUserInput";
+
 export class ProfileName {
   private constructor(private readonly value: string) {}
 
   static fromString(value: string) {
-    const normalized = value.trim();
+    const normalized = normalizeUserInput(value);
     if (normalized.length === 0) {
       throw new Error("ProfileName must be non-empty.");
     }

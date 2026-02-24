@@ -8,11 +8,18 @@ import { unfollowUser } from "@/app/_application/follow/unfollowUser";
 import { authOptions } from "@/app/_infrastructure/auth/authOptions";
 import { prisma } from "@/app/_infrastructure/db/prisma";
 import { PrismaFollowRepository } from "@/app/_infrastructure/follow/PrismaFollowRepository";
+import { logOperationError, logOperationInfo, logOperationWarn } from "@/app/_infrastructure/logging/operationLogger";
+import { assertServerActionCsrf } from "@/app/_infrastructure/security/assertServerActionCsrf";
 
 export async function toggleFollowAction(formData: FormData): Promise<void> {
+  await assertServerActionCsrf();
+
   const session = await getServerSession(authOptions);
   const followerId = session?.user?.id;
-  if (!followerId) return;
+  if (!followerId) {
+    logOperationWarn("follow.toggle.unauthorized");
+    throw new Error("Unauthorized");
+  }
 
   const followingIdRaw = formData.get("followingId");
   const intentRaw = formData.get("intent");
@@ -23,14 +30,29 @@ export async function toggleFollowAction(formData: FormData): Promise<void> {
 
   const followRepo = new PrismaFollowRepository(prisma);
 
-  if (intent === "unfollow") {
-    await unfollowUser({ followRepo }, { followerId, followingId });
-  } else {
-    await followUser({ followRepo }, { followerId, followingId });
-  }
+  try {
+    const result =
+      intent === "unfollow"
+        ? await unfollowUser({ followRepo }, { followerId, followingId })
+        : await followUser({ followRepo }, { followerId, followingId });
 
-  revalidatePath("/");
-  if (profileHandle) {
-    revalidatePath(`/u/${profileHandle}`);
+    if (!result.ok) {
+      logOperationWarn("follow.toggle.validation_failed", {
+        followerId,
+        followingId,
+        intent,
+        message: result.message,
+      });
+      throw new Error(result.message);
+    }
+
+    revalidatePath("/");
+    if (profileHandle) {
+      revalidatePath(`/u/${profileHandle}`);
+    }
+    logOperationInfo("follow.toggle.success", { followerId, followingId, intent });
+  } catch (error) {
+    logOperationError("follow.toggle.failed", error, { followerId, followingId, intent });
+    throw error;
   }
 }

@@ -11,12 +11,14 @@ export function FollowToggleButton(props: {
   profileHandle?: string;
 }) {
   const [followedByMe, setFollowedByMe] = useState(props.initialFollowedByMe);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const onClick = () => {
     const prev = followedByMe;
     const intent = prev ? "unfollow" : "follow";
     setFollowedByMe(!prev);
+    setErrorMessage(null);
 
     startTransition(async () => {
       try {
@@ -29,9 +31,19 @@ export function FollowToggleButton(props: {
         await toggleFollowAction(formData);
       } catch {
         setFollowedByMe(prev);
+        setErrorMessage("フォロー状態の更新に失敗しました。");
       }
     });
   };
 
-  return <FollowButton followedByMe={followedByMe} pending={isPending} onClick={onClick} />;
+  return (
+    <div className="space-y-1">
+      <FollowButton followedByMe={followedByMe} pending={isPending} onClick={onClick} />
+      {errorMessage ? (
+        <p className="text-right text-xs text-red-600" role="alert">
+          {errorMessage}
+        </p>
+      ) : null}
+    </div>
+  );
 }
