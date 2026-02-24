@@ -31,6 +31,27 @@ export class PrismaUserProfileRepository implements UserProfileRepository {
     );
   }
 
+  async findByHandle(handle: UserHandle): Promise<UserProfile | null> {
+    const user = await this.prisma.user.findUnique({
+      where: { handle: handle.toString() },
+      select: {
+        id: true,
+        name: true,
+        handle: true,
+        bio: true,
+      },
+    });
+
+    if (!user) return null;
+
+    return new UserProfile(
+      UserId.fromString(user.id),
+      UserHandle.fromString(user.handle),
+      ProfileName.fromString(user.name),
+      UserBio.fromString(user.bio ?? "")
+    );
+  }
+
   async existsByHandle(handle: UserHandle, excludeUserId?: UserId): Promise<boolean> {
     const user = await this.prisma.user.findUnique({
       where: { handle: handle.toString() },

@@ -13,10 +13,11 @@ export function PostComposer() {
   const { body, setBody, remaining, isOver, isEmpty, maxLength } = usePostDraft();
 
   useEffect(() => {
-    if (state.ok) {
+    if (!pending && state.ok) {
       setBody("");
+      window.dispatchEvent(new CustomEvent("timeline:refresh-top"));
     }
-  }, [setBody, state.ok]);
+  }, [pending, setBody, state.ok]);
 
   const disabled = pending || isOver || isEmpty;
 

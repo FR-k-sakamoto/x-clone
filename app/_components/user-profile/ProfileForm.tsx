@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useState } from "react";
 
 import type { UpdateProfileState } from "@/app/profile/actions";
 import { updateProfile } from "@/app/profile/actions";
@@ -13,10 +13,7 @@ export function ProfileForm(props: { initialName: string; initialHandle: string;
   const [handle, setHandle] = useState(props.initialHandle);
   const [bio, setBio] = useState(props.initialBio);
 
-  const disabled = useMemo(
-    () => pending || name.trim().length === 0 || handle.trim().length === 0,
-    [pending, name, handle]
-  );
+  const disabled = pending || name.trim().length === 0 || handle.trim().length === 0;
 
   return (
     <form action={action} className="space-y-4">

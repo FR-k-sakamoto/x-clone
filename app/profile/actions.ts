@@ -22,15 +22,17 @@ export async function updateProfile(
   _prevState: UpdateProfileState,
   formData: FormData
 ): Promise<UpdateProfileState> {
-  const session = await getServerSession(authOptions);
-  const userId = session?.user?.id ?? "";
-  if (!userId) {
-    return { ok: false, message: "認証が必要です。再ログインしてください。" };
-  }
+  const sessionPromise = getServerSession(authOptions);
 
   const name = getString(formData, "name");
   const handle = getString(formData, "handle");
   const bio = getString(formData, "bio");
+
+  const session = await sessionPromise;
+  const userId = session?.user?.id ?? "";
+  if (!userId) {
+    return { ok: false, message: "認証が必要です。再ログインしてください。" };
+  }
 
   const userProfileRepo = new PrismaUserProfileRepository(prisma);
 

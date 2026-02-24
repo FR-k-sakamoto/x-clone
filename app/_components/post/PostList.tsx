@@ -1,13 +1,26 @@
+import Link from "next/link";
+
 import { toggleLikeAction } from "@/app/_actions/reaction/actions";
 import { LikeButton } from "@/app/_components/reaction/LikeButton";
+import { toggleRepostAction } from "@/app/_actions/repost/actions";
+import { RepostButton } from "@/app/_components/repost/RepostButton";
 
 export type PostListItem = {
-  id: string;
-  authorId: string;
-  body: string;
-  createdAtIso: string;
+  eventKey: string;
+  postId: string;
+  eventCreatedAtIso: string;
+  eventType: "post" | "repost";
+  reposterHandle: string | null;
   likeCount: number;
   likedByMe: boolean;
+  repostCount: number;
+  repostedByMe: boolean;
+};
+
+export type PostListPostData = {
+  authorId: string;
+  authorHandle: string;
+  body: string;
 };
 
 function formatDate(iso: string) {
@@ -20,8 +33,14 @@ function formatDate(iso: string) {
   }).format(date);
 }
 
-export function PostList({ posts }: { posts: PostListItem[] }) {
-  if (posts.length === 0) {
+export function PostList({
+  events,
+  postsById,
+}: {
+  events: PostListItem[];
+  postsById: Record<string, PostListPostData>;
+}) {
+  if (events.length === 0) {
     return (
       <div className="rounded-xl border border-zinc-200 bg-white p-6 text-sm text-zinc-600">
         まだ投稿がありません。
@@ -31,20 +50,46 @@ export function PostList({ posts }: { posts: PostListItem[] }) {
 
   return (
     <ul className="space-y-3">
-      {posts.map((post) => (
-        <li key={post.id} className="rounded-xl border border-zinc-200 bg-white p-4">
-          <div className="flex items-center justify-between text-xs text-zinc-500">
-            <span className="font-mono">{post.authorId.slice(0, 8)}</span>
-            <time dateTime={post.createdAtIso}>{formatDate(post.createdAtIso)}</time>
-          </div>
-          <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-900">{post.body}</p>
-          <form action={toggleLikeAction} className="mt-3">
-            <input type="hidden" name="postId" value={post.id} />
-            <input type="hidden" name="intent" value={post.likedByMe ? "unlike" : "like"} />
-            <LikeButton likedByMe={post.likedByMe} likeCount={post.likeCount} />
-          </form>
-        </li>
-      ))}
+      {events.map((event) => {
+        const post = postsById[event.postId];
+        if (!post) return null;
+
+        return (
+          <li key={event.eventKey} className="rounded-xl border border-zinc-200 bg-white p-4">
+            {event.eventType === "repost" && event.reposterHandle ? (
+              <p className="mb-2 text-xs font-medium text-emerald-700">
+                @{event.reposterHandle} がリポスト
+              </p>
+            ) : null}
+            <div className="flex items-center justify-between text-xs text-zinc-500">
+              <Link href={`/u/${post.authorHandle}`} className="font-mono hover:underline">
+                @{post.authorHandle}
+              </Link>
+              <time dateTime={event.eventCreatedAtIso}>{formatDate(event.eventCreatedAtIso)}</time>
+            </div>
+            <p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-zinc-900">{post.body}</p>
+            <div className="mt-3 flex items-center gap-4">
+              <form action={toggleLikeAction}>
+                <input type="hidden" name="postId" value={event.postId} />
+                <input type="hidden" name="intent" value={event.likedByMe ? "unlike" : "like"} />
+                <LikeButton likedByMe={event.likedByMe} likeCount={event.likeCount} />
+              </form>
+              <form action={toggleRepostAction}>
+                <input type="hidden" name="postId" value={event.postId} />
+                <input
+                  type="hidden"
+                  name="intent"
+                  value={event.repostedByMe ? "unrepost" : "repost"}
+                />
+                <RepostButton repostedByMe={event.repostedByMe} repostCount={event.repostCount} />
+              </form>
+              <Link href={`/post/${event.postId}`} className="text-xs font-medium text-zinc-600 hover:text-zinc-900">
+                返信を見る
+              </Link>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
