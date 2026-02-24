@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { getTimelinePage } from "@/app/_application/timeline/getTimelinePage";
 import { AuthButtons } from "@/app/_components/auth/AuthButtons";
 import { PostComposer } from "@/app/_components/post/PostComposer";
+import { DashboardSearchPanel } from "@/app/_components/search/DashboardSearchPanel";
 import { TimelineFeed } from "@/app/_components/timeline/TimelineFeed";
 import { authOptions } from "@/app/_infrastructure/auth/authOptions";
 import { prisma } from "@/app/_infrastructure/db/prisma";
@@ -42,11 +43,13 @@ export default async function Home() {
             <p className="mt-1 text-sm text-zinc-600">Phase 3: Timeline ドメイン作業中</p>
           </div>
 
-          <AuthButtons />
+          <div className="flex items-center gap-4">
+            <AuthButtons />
+          </div>
         </header>
 
-        <main className="mt-12 rounded-xl border border-zinc-200 bg-white p-6">
-          {!session?.user ? (
+        {!session?.user ? (
+          <main className="mt-12 rounded-xl border border-zinc-200 bg-white p-6">
             <div className="space-y-3">
               <p className="text-sm text-zinc-700">現在ログインしていません。</p>
               <Link
@@ -56,33 +59,12 @@ export default async function Home() {
                 Go to login
               </Link>
             </div>
-          ) : (
-            <div className="space-y-2">
-              <p className="text-sm text-zinc-700">ログイン中</p>
-              <dl className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-                <div>
-                  <dt className="text-zinc-500">id</dt>
-                  <dd className="font-mono text-zinc-900">{session.user.id}</dd>
-                </div>
-                <div>
-                  <dt className="text-zinc-500">handle</dt>
-                  <dd className="font-mono text-zinc-900">{session.user.handle ?? "(not set)"}</dd>
-                </div>
-                <div>
-                  <dt className="text-zinc-500">name</dt>
-                  <dd className="text-zinc-900">{session.user.name}</dd>
-                </div>
-                <div>
-                  <dt className="text-zinc-500">email</dt>
-                  <dd className="text-zinc-900">{session.user.email}</dd>
-                </div>
-              </dl>
-            </div>
-          )}
-        </main>
+          </main>
+        ) : null}
 
         {session?.user ? (
           <div className="mt-8 space-y-4">
+            <DashboardSearchPanel />
             <PostComposer />
             <TimelineFeed
               initialItems={initialTimeline.items}
