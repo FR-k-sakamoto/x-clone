@@ -83,6 +83,9 @@ export function PostList({
                 />
                 <RepostButton repostedByMe={event.repostedByMe} repostCount={event.repostCount} />
               </form>
+              <Link href={`/post/${event.postId}`} className="text-xs font-medium text-zinc-600 hover:text-zinc-900">
+                返信を見る
+              </Link>
             </div>
           </li>
         );
