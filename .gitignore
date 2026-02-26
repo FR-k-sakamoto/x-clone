@@ -13,6 +13,9 @@
 
 # testing
 /coverage
+/playwright-report
+/test-results
+/docs/e2e-manual
 
 # next.js
 /.next/
