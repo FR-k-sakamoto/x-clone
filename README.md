@@ -23,6 +23,42 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## E2E (Playwright)
+
+依存を入れていない場合は、先にインストール:
+
+```bash
+npm install -D @playwright/test @playwright/mcp
+```
+
+Playwright ブラウザをインストール:
+
+```bash
+npm run test:e2e:install
+```
+
+E2E テスト実行:
+
+```bash
+npm run test:e2e
+```
+
+UI モード実行:
+
+```bash
+npm run test:e2e:ui
+```
+
+## Playwright MCP
+
+ルートの `.mcp.json` に Playwright MCP サーバー設定を追加済みです。
+
+手動起動する場合:
+
+```bash
+npm run mcp:playwright
+```
+
 ### Auth(メール/パスワード)
 - サインアップ: `http://localhost:3000/signup`
 - ログイン: `http://localhost:3000/login`
