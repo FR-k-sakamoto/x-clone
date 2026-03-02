@@ -40,7 +40,7 @@ export default async function Home() {
         <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">X Clone</h1>
-            <p className="mt-1 text-sm text-zinc-600">Phase 3: Timeline ドメイン作業中</p>
+
           </div>
 
           <div className="flex items-center gap-4">
