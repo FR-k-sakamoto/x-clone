@@ -42,7 +42,7 @@ export async function signUpWithEmailPassword(
 
   if (result.ok) {
     logOperationInfo("auth.signup.success");
-    redirect("/login");
+    redirect("/");
   }
 
   logOperationWarn("auth.signup.validation_failed", { message: result.message });
